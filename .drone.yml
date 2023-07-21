@@ -35,7 +35,9 @@ steps:
       - npm install -g pnpm
       - pnpm i --frozen-lockfile
       - pnpm build
-      - mv dist ../server/
+      - ls -alh 
+      - ls ../
+      - cp -rf dist ../server/
 
   - name: Setup Go
     image: golang:1.19.3
