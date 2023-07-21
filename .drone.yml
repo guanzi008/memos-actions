@@ -40,7 +40,7 @@ steps:
       - cp -rf dist ../server/
 
   - name: Setup Go
-    image: golang:1.19.3
+    image: ccr.ccs.tencentyun.com/xiaoqidun/goenv
     environment:
       DRONE_ARCH: "{{ arch }}"
       DRONE_SYSTEM_EXT: ""
