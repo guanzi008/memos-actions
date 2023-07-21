@@ -1,6 +1,8 @@
 kind: pipeline
 name: Memos Build
-
+node:
+  region: cn
+  
 trigger:
   branch:
     include:
