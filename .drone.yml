@@ -3,15 +3,26 @@ name: Memos Build
 
 trigger:
   branch:
-    - main
+    include:
+      - main
 
 platform:
-  os: [linux, windows, darwin]
-  arch: [amd64, arm64]
-  
+  matrix:
+    include:
+      - os: linux
+        arch: amd64
+      - os: linux
+        arch: arm64
+      - os: windows
+        arch: amd64
+      - os: darwin
+        arch: amd64
+
 steps:
   - name: Checkout repository
-    image: docker
+    image: alpine/git
+    settings:
+      depth: 1
     commands:
       - git clone https://github.com/usememos/memos.git
 
@@ -26,11 +37,16 @@ steps:
 
   - name: Setup Go
     image: golang:1.19.3
+    environment:
+      DRONE_ARCH: "{{ arch }}"
+      DRONE_SYSTEM_EXT: ""
     commands:
       - cd memos
-      - go build -o memos-${DRONE_PLATFORM}-${DRONE_ARCH}${DRONE_SYSTEM_EXT} ./main.go
+      - go build -o memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT} ./main.go
 
   - name: Upload artifacts
-    image: plugins/artifact
+    image: plugins/s3
     settings:
-      target: memos/memos-${DRONE_PLATFORM}-${DRONE_ARCH}${DRONE_SYSTEM_EXT}
+      bucket: my-bucket-name
+      source: memos/memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT}
+      target: latest/memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT}
