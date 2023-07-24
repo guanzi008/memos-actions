@@ -22,6 +22,7 @@ platform:
 
 steps:
   - name: Checkout repository
+    pull: if-not-exists
     image: alpine/git
     settings:
       depth: 1
@@ -31,6 +32,7 @@ steps:
       - git clone https://github.com/usememos/memos.git
 
   - name: Setup Node.js
+    pull: if-not-exists
     image: node:18.12.1
     commands:
       - export http_proxy=http://172.17.0.1:54321
@@ -44,6 +46,7 @@ steps:
       - cp -rf dist ../server/
 
   - name: Setup Go
+    pull: if-not-exists
     image: ccr.ccs.tencentyun.com/xiaoqidun/goenv
     environment:
       DRONE_ARCH: "{{ arch }}"
