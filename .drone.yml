@@ -26,11 +26,15 @@ steps:
     settings:
       depth: 1
     commands:
+      - export http_proxy=http://172.17.0.1:54321
+      - export https_proxy=http://172.17.0.1:54321
       - git clone https://github.com/usememos/memos.git
 
   - name: Setup Node.js
     image: node:18.12.1
     commands:
+      - export http_proxy=http://172.17.0.1:54321
+      - export https_proxy=http://172.17.0.1:54321
       - cd memos/web
       - npm install -g pnpm
       - pnpm i --frozen-lockfile
@@ -47,10 +51,11 @@ steps:
     commands:
       - cd memos
       - go build -o memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT} ./main.go
+      - ls -alh
 
-  - name: Upload artifacts
-    image: plugins/s3
-    settings:
-      bucket: my-bucket-name
-      source: memos/memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT}
-      target: latest/memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT}
+  # - name: Upload artifacts
+  #   image: plugins/s3
+  #   settings:
+  #     bucket: my-bucket-name
+  #     source: memos/memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT}
+  #     target: latest/memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT}
