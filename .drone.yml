@@ -53,7 +53,10 @@ steps:
       DRONE_SYSTEM_EXT: ""
     commands:
       - cd memos
-      - go build -o memos-${DRONE_ARCH}${DRONE_SYSTEM_EXT} ./main.go
+      - CC=x86_64-w64-mingw32-gcc GOOS=windows GOARCH=amd64 CGO_ENABLED=1 go build -o release/memos_window_amd64.exe -trimpath -ldflags '-H windowsgui -s -w' main.go
+      - GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o release/memos_linux_amd64 -trimpath -ldflags '-s -w' main.go
+      - GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -o release/memos_linux_arm64 -trimpath -ldflags '-s -w' main.go
+      - GOOS=darwin GOARCH=amd64 CGO_ENABLED=0 go build -o release/memos_darwin_amd64 -trimpath -ldflags '-s -w' main.go
       - ls -alh
 
   # - name: Upload artifacts
