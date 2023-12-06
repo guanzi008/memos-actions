@@ -53,8 +53,10 @@ jobs:
       if: matrix.os != 'windows-latest'
       run: |
         cd memos/web
+        corepack enable
         npm install -g pnpm
         pnpm i --frozen-lockfile
+        pnpm type-gen
         pnpm build
         rm -rf ../server/dist
         mv dist ../server/
