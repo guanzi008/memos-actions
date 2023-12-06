@@ -42,7 +42,7 @@ jobs:
       run: |
         cd memos/web
         corepack enable
-        npm install -g pnpm
+        npm install -g pnpm --force
         pnpm i --frozen-lockfile
         pnpm type-gen
         pnpm build
@@ -54,7 +54,7 @@ jobs:
       run: |
         cd memos/web
         corepack enable
-        npm install -g pnpm
+        npm install -g pnpm --force
         pnpm i --frozen-lockfile
         pnpm type-gen
         pnpm build
