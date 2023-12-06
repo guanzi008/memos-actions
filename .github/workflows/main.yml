@@ -41,8 +41,10 @@ jobs:
       shell: pwsh
       run: |
         cd memos/web
+        corepack enable
         npm install -g pnpm
         pnpm i --frozen-lockfile
+        pnpm type-gen
         pnpm build
         Remove-Item -Path ../server/dist -Recurse -Force
         mv dist ../server/
