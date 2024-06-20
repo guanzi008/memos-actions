@@ -45,7 +45,6 @@ jobs:
         corepack enable
         npm install -g pnpm --force
         pnpm i --frozen-lockfile
-        pnpm type-gen
         pnpm build
         Remove-Item -Path ../server/dist -Recurse -Force
         mv dist ../server/
@@ -57,7 +56,6 @@ jobs:
         corepack enable
         npm install -g pnpm --force
         pnpm i --frozen-lockfile
-        pnpm type-gen
         pnpm build
         rm -rf ../server/dist
         mv dist ../server/
