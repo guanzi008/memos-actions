@@ -45,9 +45,7 @@ jobs:
         corepack enable
         npm install -g pnpm --force
         pnpm i --frozen-lockfile
-        pnpm build
-        dir
-        Remove-Item -Path ../server/dist -Recurse -Force
+        pnpm build # Remove-Item -Path ../server/dist -Recurse -Force
         Move-Item -Path dist -Destination ../server/dist
        # mv dist ../server/dist
         
