@@ -49,6 +49,8 @@ jobs:
         dir
         Remove-Item -Path ../server/dist -Recurse -Force
         move /y dist ../server/
+        dir
+        move ./dist ../server
         
 
     - name: Build frontend (non-Windows)
