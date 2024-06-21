@@ -48,6 +48,7 @@ jobs:
         pnpm build
         dir
         Remove-Item -Path ../server/dist -Recurse -Force
+        Move-Item -Path dist -Destination ../server/dist
        # mv dist ../server/dist
         
 
