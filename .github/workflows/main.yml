@@ -47,10 +47,8 @@ jobs:
         pnpm i --frozen-lockfile
         pnpm build
         dir
-   #     Remove-Item -Path ../server/dist -Recurse -Force
-         move dist ../server/
-    
-     #   move ./dist ../server
+        Remove-Item -Path ../server/dist -Recurse -Force
+        mv dist ../server/
         
 
     - name: Build frontend (non-Windows)
